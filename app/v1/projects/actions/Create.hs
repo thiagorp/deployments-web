@@ -4,7 +4,7 @@
 
 module V1.Projects.Actions.Create (Api, server) where
 
-import Control.Monad.IO.Class
+import Control.Monad.IO.Class (liftIO)
 
 import Data.Aeson
 import Servant
