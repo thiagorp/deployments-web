@@ -3,7 +3,7 @@
 module V1.Projects.Schema (Response, buildResponse) where
 
 import Data.Aeson
-import Lib (Project, projectId, projectName)
+import Project (Project, projectId, projectName)
 
 newtype Response = Response Project
 

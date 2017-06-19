@@ -9,7 +9,7 @@ import Control.Monad.IO.Class (liftIO)
 import Data.Aeson
 import Servant
 
-import Lib (ProjectCreateParams(..), createProject)
+import Project (ProjectCreateParams(ProjectCreateParams), createProject)
 import V1.Projects.Schema (Response, buildResponse)
 
 type Api = ReqBody '[JSON] Body :> Post '[JSON] Response
