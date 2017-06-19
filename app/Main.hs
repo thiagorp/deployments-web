@@ -4,4 +4,4 @@ import Api (apiServer)
 import Network.Wai.Handler.Warp (run)
 
 main :: IO ()
-main = run 8081 apiServer
+main = putStrLn "Server started" >> run 8081 apiServer
