@@ -1,4 +1,22 @@
-module Lib ( someFunc ) where
+module Lib
+    (
+      Project(..)
+    , ProjectCreateParams(..)
+    , createProject
+    ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+import Data.UUID
+import Data.UUID.V4
+
+type ProjectID = UUID
+type ProjectName = String
+
+data Project = Project
+    { projectId :: !ProjectID
+    , projectName :: !ProjectName
+    }
+
+newtype ProjectCreateParams = ProjectCreateParams ProjectName
+
+createProject :: ProjectCreateParams -> IO Project
+createProject (ProjectCreateParams name) = Project <$> nextRandom <*> pure name
