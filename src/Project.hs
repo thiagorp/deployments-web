@@ -7,6 +7,10 @@ module Project
 
 import Data.UUID
 import Data.UUID.V4
+import Control.Monad.IO.Class (liftIO)
+import Control.Monad.Trans.Reader (asks)
+
+import DeployAppConfig (AppHandler(..), getAppName)
 
 type ProjectID = UUID
 type ProjectName = String
@@ -18,5 +22,8 @@ data Project = Project
 
 newtype ProjectCreateParams = ProjectCreateParams ProjectName
 
-createProject :: ProjectCreateParams -> IO Project
-createProject (ProjectCreateParams name) = Project <$> nextRandom <*> pure name
+createProject :: ProjectCreateParams -> AppHandler Project
+createProject (ProjectCreateParams name) = do
+  appName <- asks getAppName
+  uuid <- liftIO nextRandom
+  return $ Project uuid appName

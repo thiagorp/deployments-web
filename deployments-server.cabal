@@ -16,7 +16,9 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Project
+                     , DeployAppConfig
   build-depends:       base >= 4.7 && < 5
+                     , transformers
                      , uuid
   default-language:    Haskell2010
 
@@ -24,6 +26,7 @@ executable deployments-server-exe
   hs-source-dirs:      app
   main-is:             Main.hs
   other-modules:       Api
+                     , LibUtils
                      , V1.Api
                      , V1.Projects.Api
                      , V1.Projects.Schema
@@ -32,8 +35,10 @@ executable deployments-server-exe
   build-depends:       base
                      , aeson >= 1.1.2.0 && < 1.2
                      , deployments-server
+                     , natural-transformation
                      , servant >= 0.9.1.1 && < 0.11
                      , servant-server
+                     , transformers
                      , warp == 3.2.*
   default-language:    Haskell2010
 

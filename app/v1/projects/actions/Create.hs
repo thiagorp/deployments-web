@@ -4,13 +4,13 @@
 
 module V1.Projects.Actions.Create (Api, server) where
 
-import Control.Monad.IO.Class (liftIO)
-
 import Data.Aeson
 import Servant
 
 import Project (ProjectCreateParams(ProjectCreateParams), createProject)
+import LibUtils (libToServant)
 import V1.Projects.Schema (Response, buildResponse)
+import DeployAppConfig (AppHandler)
 
 type Api = ReqBody '[JSON] Body :> Post '[JSON] Response
 
@@ -22,11 +22,11 @@ instance FromJSON Body where
     where
       parse' o = Body <$> o .: "name"
 
-create :: Body -> Handler Response
-create body = liftIO $ buildResponse <$> create' body
+create :: Body -> AppHandler Response
+create body = buildResponse <$> create' body
     where
       create' = createProject . buildParams
       buildParams = ProjectCreateParams . projectName
 
 server :: Server Api
-server = create
+server = enter libToServant create
